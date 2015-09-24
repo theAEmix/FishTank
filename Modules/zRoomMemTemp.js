@@ -70,52 +70,57 @@ module.exports = function(croom, idlex, idley) {
             'buildroam': [WORK, CARRY, MOVE, MOVE]
         }
     }
-    mem.idlespot = {'creeptype':{
-        'harvester': {},
-        'farmer': {},
-        'gather': {},
-        'courier': {},
-        'hauler': {},
-        'tanker': {},
-        'helper': {},
-        'ups': {},
-        'banker': {},
-        'runner': {},
-        'builder': {},
-        'repairer': {},
-        'pumper': {},
-        'emt': {},
-        'attacker': {},
-        'guard': {},
-        'spawnguard': {},
-        'ranger': {},
-        'bruiser': {},
-        'cleric': {},
-        'claimer': {},
-        'buildroam': {}
+    mem.idlespot = {
+        'creeptype': {
+            'harvester': {},
+            'farmer': {},
+            'gather': {},
+            'courier': {},
+            'hauler': {},
+            'tanker': {},
+            'helper': {},
+            'ups': {},
+            'banker': {},
+            'runner': {},
+            'builder': {},
+            'repairer': {},
+            'pumper': {},
+            'emt': {},
+            'attacker': {},
+            'guard': {},
+            'spawnguard': {},
+            'ranger': {},
+            'bruiser': {},
+            'cleric': {},
+            'claimer': {},
+            'buildroam': {}
+        }
     }
-    }
-    for(var i in mem.idlespot.creeptype){
+    for (var i in mem.idlespot.creeptype) {
         mem.idlespot.creeptype[i].x = idlex;
         mem.idlespot.creeptype[i].y = idley;
         mem.idlespot.creeptype[i].roomName = croom.name;
     }
-    mem.spawnname= {'name1':croom.find(FIND_MY_SPAWNS)[0].name};
+    mem.spawnname = {
+        'name1': croom.find(FIND_MY_SPAWNS)[0].name
+    };
     var roomsources = croom.find(FIND_SOURCES);
-    mem.sources = {'psource':{
-        'Id':roomsources[0].id,
-        'linkId':''
-    }}
-    if(roomsources[1]){
-        mem.sources.ssource = {
-            'Id':roomsources[1].id,
-            'linkId':''
+    mem.sources = {
+        'psource': {
+            'Id': roomsources[0].id,
+            'linkId': ''
         }
     }
-    else{
+    if (roomsources[1]) {
         mem.sources.ssource = {
-            'Id':roomsources[0].id,
-            'linkId':''
+            'Id': roomsources[1].id,
+            'linkId': ''
+        }
+    }
+    else {
+        mem.sources.ssource = {
+            'Id': roomsources[0].id,
+            'linkId': ''
         }
     }
     mem.update = 1;
@@ -123,18 +128,18 @@ module.exports = function(croom, idlex, idley) {
     mem.rLevel = 1;
     mem.updateStructures = 45;
     mem.updateCreeps = 1;
-    mem.updateRepair  = 1;
+    mem.updateRepair = 1;
     mem.roomStage = 1;
     mem.upgradestage = 0;
     mem.guardposts = [];
     mem.spawnBit = 0;
     mem.links = {
-        'clink':'',
-        'centerlink':'',
-        'hlink':'',
-        'blink':'',
-        'plink':'',
-        'slink':''
+        'clink': '',
+        'centerlink': '',
+        'hlink': '',
+        'blink': '',
+        'plink': '',
+        'slink': ''
     }
     mem.mSites = [];
 
@@ -163,7 +168,7 @@ module.exports = function(croom, idlex, idley) {
         'buildroam': 0,
         'totalCreeps': 10
     }
-        mem.mode.building = {
+    mem.mode.building = {
         'harvester': 6,
         'farmer': 0,
         'gather': 0,
