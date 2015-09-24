@@ -1,119 +1,193 @@
-module.exports = function(creep) {
-    //return;    
-    //var pathFind = require('pathFind');    
-
-
-    if (creep.room.controller.my) {
-        if (creep.carry.energy === 0) {
-            creep.memory.role = 'claimer';
-            delete creep.memory.target;
-            delete creep.memory.path;
-            delete creep.memory.start;
-            delete creep.memory.end;
-            delete creep.memory.status;
-            creep.say('reseting');
-        }
-        else {
-            var croom = Game.rooms[creep.memory.spawnroom];
-            if (croom.storage) {
-                creep.moveTo(creep.room.storage, {
-                    reusePath: 45
-                });
-                creep.transferEnergy(creep.room.storage);
-            }
-            else {
-                creep.moveTo(Game.spawns[creep.memory.homebase], {
-                    reusePath: 45
-                })
-                if (creep.pos.getRangeTo(Game.spawns[creep.memory.homebase]) === 1) {
-                    creep.dropEnergy();
-                }
-            }
+module.exports = function(croom, idlex, idley) {
+    var mem = Memory.rooms[croom.name];
+    mem.setpoints = {
+        'wallhealth': 500,
+        'ramparthealth': 5000,
+        'maxhealth': 0
+    };
+    var modetemp = {
+        'harvester': 0,
+        'farmer': 0,
+        'gather': 0,
+        'courier': 0,
+        'hauler': 0,
+        'tanker': 0,
+        'helper': 0,
+        'ups': 0,
+        'banker': 0,
+        'runner': 0,
+        'builder': 0,
+        'repairer': 0,
+        'pumper': 0,
+        'emt': 0,
+        'attacker': 0,
+        'guard': 0,
+        'spawnguard': 0,
+        'ranger': 0,
+        'bruiser': 0,
+        'cleric': 0,
+        'claimer': 0,
+        'buildroam': 0,
+        'totalCreeps': 0
+    };
+    mem.mode = {
+        'general': modetemp,
+        'building': modetemp,
+        'collecting': modetemp,
+        'defense': modetemp,
+        'rampart': modetemp,
+        'squad': modetemp,
+        'upgrading': modetemp,
+        'buildonly': modetemp,
+        'idle': modetemp,
+        'shutdown': modetemp,
+        'scriptohio': modetemp,
+        'rebuilding': modetemp
+    }
+    mem.template = {
+        'creeptype': {
+            'harvester': [WORK, CARRY, MOVE, MOVE],
+            'farmer': [WORK, CARRY, MOVE, MOVE],
+            'gather': [WORK, CARRY, MOVE, MOVE],
+            'courier': [CARRY, MOVE],
+            'hauler': [CARRY, CARRY, MOVE, MOVE],
+            'tanker': [CARRY, CARRY, MOVE, MOVE],
+            'helper': [CARRY, CARRY, MOVE, MOVE],
+            'ups': [CARRY, CARRY, MOVE, MOVE],
+            'banker': [CARRY, CARRY, MOVE, MOVE],
+            'runner': [WORK, CARRY, MOVE, MOVE],
+            'builder': [WORK, CARRY, MOVE, MOVE],
+            'repairer': [WORK, CARRY, MOVE, MOVE],
+            'pumper': [WORK, CARRY, MOVE, MOVE],
+            'emt': [WORK, CARRY, MOVE, MOVE],
+            'attacker': [TOUGH, ATTACK, MOVE, MOVE],
+            'guard': [TOUGH, ATTACK, MOVE, MOVE],
+            'spawnguard': [TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, RANGED_ATTACK],
+            'ranger': [RANGED_ATTACK, MOVE],
+            'bruiser': [TOUGH, TOUGH, ATTACK, MOVE, MOVE, MOVE],
+            'cleric': [MOVE],
+            'claimer': [MOVE],
+            'buildroam': [WORK, CARRY, MOVE, MOVE]
         }
     }
-    else {
-
-
-        if (creep.carry.energy < creep.carryCapacity && creep.room.name !== 'E3S4' && _.filter(Memory.creeps, {
-                'job': 'gather',
-                'color': creep.memory.color
-            }).length >= 1) {
-
-            if (!creep.memory.target) {
-
-                var eTar = creep.pos.findClosest(FIND_DROPPED_ENERGY, {
-                    filter: function(o) {
-                        return o.energy > 250
-                    }
-                });
-                if (eTar) {
-                    creep.memory.target = eTar.id;
-                    //creep.move(BOTTOM);
-                    //creep.say('Found Energy');
-                }
-                else {
-                    creep.say('No NRG');
-                    var gatherers = creep.pos.findInRange(FIND_MY_CREEPS, 4, {
-                        filter: function(o) {
-                            return o.memory.job === 'gather'
-                        }
-                    });
-                    creep.say(gatherers[0]);
-                    if (gatherers[0] !== undefined) {
-                        var d1 = creep.pos.getDirectionTo(gatherers[0]);
-                        creep.say(d1);
-                        var newdirection = (d1 + 2) % 8;
-                        creep.say(newdirection);
-                        creep.move(newdirection);
-                    }
-                    else if (creep.memory.color === 'green') {
-                        creep.move(5);
-                    }
-                }
-                //creep.say('Search');
-            }
-            else {
-                //creep.say('pickup');
-                if (!Game.getObjectById(creep.memory.target)) {
-                    delete creep.memory.target;
-                }
-                else {
-                    creep.moveTo(Game.getObjectById(creep.memory.target), {
-                        reusePath: 45
-                    });
-                    creep.pickup(Game.getObjectById(creep.memory.target));
-                }
-            }
-        }
-        else {
-            //creep.say('Full');
-            if (creep.memory.color === 'green') {
-                var target = new RoomPosition(30, 20, 'E3S4');
-                if (creep.pos.getRangeTo(target) !== 0) {
-                    creep.moveTo(target, {
-                        reusePath: 45
-                    });
-                }
-                else {
-                    if (!creep.pos.findInRange(FIND_DROPPED_ENERGY, 0)[0]) {
-                        creep.dropEnergy();
-                        creep.memory.role = 'claimer';
-                        delete creep.memory.target;
-                        delete creep.memory.path;
-                        delete creep.memory.start;
-                        delete creep.memory.end;
-                        delete creep.memory.status;
-                    }
-
-
-                }
-            }
-            else {
-                creep.moveTo(Game.spawns[creep.memory.homebase], {
-                    reusePath: 45
-                });
-            }
-        }
-
+    mem.idlespot = {'creeptype':{
+        'harvester': {},
+        'farmer': {},
+        'gather': {},
+        'courier': {},
+        'hauler': {},
+        'tanker': {},
+        'helper': {},
+        'ups': {},
+        'banker': {},
+        'runner': {},
+        'builder': {},
+        'repairer': {},
+        'pumper': {},
+        'emt': {},
+        'attacker': {},
+        'guard': {},
+        'spawnguard': {},
+        'ranger': {},
+        'bruiser': {},
+        'cleric': {},
+        'claimer': {},
+        'buildroam': {}
     }
+    }
+    for(var i in mem.idlespot.creeptype){
+        mem.idlespot.creeptype[i].x = idlex;
+        mem.idlespot.creeptype[i].y = idley;
+        mem.idlespot.creeptype[i].roomName = croom.name;
+    }
+    mem.spawnname= {'name1':croom.find(FIND_MY_SPAWNS)[0].name};
+    var roomsources = croom.find(FIND_SOURCES);
+    mem.sources = {'psource':{
+        'Id':roomsources[0].id,
+        'linkId':''
+    }}
+    if(roomsources[1]){
+        mem.sources.ssource = {
+            'Id':roomsources[1].id,
+            'linkId':''
+        }
+    }
+    else{
+        mem.sources.ssource = {
+            'Id':roomsources[0].id,
+            'linkId':''
+        }
+    }
+    mem.update = 1;
+    mem.currentmode = 'general';
+    mem.rLevel = 1;
+    mem.updateStructures = 45;
+    mem.updateCreeps = 1;
+    mem.updateRepair  = 1;
+    mem.roomStage = 1;
+    mem.upgradestage = 0;
+    mem.guardposts = [];
+    mem.spawnBit = 0;
+    mem.links = {
+        'clink':'',
+        'centerlink':'',
+        'hlink':'',
+        'blink':'',
+        'plink':'',
+        'slink':''
+    }
+    mem.mSites = [];
+
+    mem.mode.general = {
+        'harvester': 6,
+        'farmer': 0,
+        'gather': 0,
+        'courier': 0,
+        'hauler': 0,
+        'tanker': 0,
+        'helper': 0,
+        'ups': 0,
+        'banker': 0,
+        'runner': 3,
+        'builder': 1,
+        'repairer': 0,
+        'pumper': 0,
+        'emt': 0,
+        'attacker': 0,
+        'guard': 0,
+        'spawnguard': 0,
+        'ranger': 0,
+        'bruiser': 0,
+        'cleric': 0,
+        'claimer': 0,
+        'buildroam': 0,
+        'totalCreeps': 10
+    }
+        mem.mode.building = {
+        'harvester': 6,
+        'farmer': 0,
+        'gather': 0,
+        'courier': 0,
+        'hauler': 0,
+        'tanker': 0,
+        'helper': 0,
+        'ups': 0,
+        'banker': 0,
+        'runner': 2,
+        'builder': 3,
+        'repairer': 0,
+        'pumper': 0,
+        'emt': 0,
+        'attacker': 0,
+        'guard': 0,
+        'spawnguard': 0,
+        'ranger': 0,
+        'bruiser': 0,
+        'cleric': 0,
+        'claimer': 0,
+        'buildroam': 0,
+        'totalCreeps': 11
+    }
+    console.log('A new room has been initialized and spawn is built : ' + croom.name);
+
 }
