@@ -62,16 +62,10 @@ module.exports = function(croom, cmodeString, invade) {
         var creepgoal = rmode.totalCreeps;
         cpuTracking.push(['Limit Define', Game.getUsedCpu()]);
         var hCreeps = croom.find(FIND_HOSTILE_CREEPS, {
-                filter: function(o) {
-                    return (o.owner.username !== 'DXWarlock'
-                    && o.owner.username !== 'Sylirant'
-                    && o.owner.username !== 'DewJunkie'
-                    && o.owner.username !== 'Vertigan'
-                    && o.owner.username !== 'Waveofbabies'
-                    && o.owner.username !== 'Vision'
-                    )
-                }
-            })[0];
+            filter: function(o) {
+                return (o.owner.username !== 'DXWarlock' && o.owner.username !== 'Sylirant' && o.owner.username !== 'DewJunkie' && o.owner.username !== 'Vertigan' && o.owner.username !== 'Waveofbabies' && o.owner.username !== 'Vision')
+            }
+        })[0];
         if (hCreeps && croom.memory.currentmode !== 'defense') {
             croom.memory.currentmode = 'defense';
             Game.notify('Enemy creep detected: [' + hCreeps.owner.username + '] , changing to defense mode, FYI, in room ' + croom.name);
@@ -160,7 +154,6 @@ module.exports = function(croom, cmodeString, invade) {
             AE.makeQueue(croom);
             cpuTracking.push(['Spawn Start', Game.getUsedCpu()]);
             //Initial Memory reset for Spawning
-            croom.memory.spawnQueue = [];
             //Rebuild script to rebuild any creeps that died, need to deal with the issue of names still, won't build W1 when any other Ws exist
             if (Game.spawns[spawn] && croom.memory.updateCreeps === 0 && !Game.spawns[spawn].spawning) {
                 if (cCreeps.length < creepgoal) {
@@ -188,7 +181,7 @@ module.exports = function(croom, cmodeString, invade) {
                     }
                     else if (roleCount['farmer'] < FarmGoal) {
                         //console.log("Building Farmer");
-                        var base = 'Farmer'
+                        var base = 'Farmer';
                         var suffixn = 1;
                         var title = base.concat(suffixn.toString());
                         while (Game.spawns[spawn].canCreateCreep([WORK], title) == -3) {
@@ -392,27 +385,37 @@ module.exports = function(croom, cmodeString, invade) {
                             if (_.filter(Memory.creeps, {
                                     'job': 'gather',
                                     'color': 'purple'
-                                }).length >= purplelimit) {creepcolor = 'blue';
-                            if(_.filter(Memory.creeps, {'job':'gather','color':'blue'}).length >= 1 )creepcolor = 'cyan';
-                                }
+                                }).length >= purplelimit) {
+                                creepcolor = 'blue';
+                                if (_.filter(Memory.creeps, {
+                                        'job': 'gather',
+                                        'color': 'blue'
+                                    }).length >= 1) creepcolor = 'cyan';
+                            }
                         }
                         if (croom.name === 'E6N13') {
                             creepcolor = 'green';
                             var greenfilter = _.filter(Memory.creeps, {
-                                    'job': 'gather',
-                                    'color': 'green'
-                                }).length;
-                            if (greenfilter >= greenlimit) {creepcolor = 'yellow';}
+                                'job': 'gather',
+                                'color': 'green'
+                            }).length;
+                            if (greenfilter >= greenlimit) {
+                                creepcolor = 'yellow';
+                            }
                             var yellowfilter = _.filter(Memory.creeps, {
-                                    'job': 'gather',
-                                    'color': 'yellow'
-                                }).length;
-                            if (yellowfilter >= yellowlimit && greenfilter >= greenlimit) {creepcolor = 'orange';}
+                                'job': 'gather',
+                                'color': 'yellow'
+                            }).length;
+                            if (yellowfilter >= yellowlimit && greenfilter >= greenlimit) {
+                                creepcolor = 'orange';
+                            }
                             var orangefilter = _.filter(Memory.creeps, {
-                                    'job': 'gather',
-                                    'color': 'orange'
-                                }).length;
-                            if (orangefilter >= orangelimit && greenfilter >= greenlimit && yellowfilter >= yellowlimit) {creepcolor = 'brown';}
+                                'job': 'gather',
+                                'color': 'orange'
+                            }).length;
+                            if (orangefilter >= orangelimit && greenfilter >= greenlimit && yellowfilter >= yellowlimit) {
+                                creepcolor = 'brown';
+                            }
                         }
                         while (Game.spawns[spawn].canCreateCreep([WORK], title) == -3) {
                             suffixn = suffixn + 1;
@@ -439,12 +442,12 @@ module.exports = function(croom, cmodeString, invade) {
                         var greengoal = 2;
                         var yellowgoal = 4;
                         var orangegoal = 2;
-                        
+
                         var base = 'UPS';
                         var suffixn = 1;
                         var title = base.concat(suffixn.toString());
                         var creepcolor = 'white';
-                        if (croom.name === 'W1S4'){
+                        if (croom.name === 'W1S4') {
                             creepcolor = 'grey';
                             if (_.filter(Memory.creeps, {
                                     'job': 'ups',
@@ -459,36 +462,40 @@ module.exports = function(croom, cmodeString, invade) {
                             if (_.filter(Memory.creeps, {
                                     'job': 'ups',
                                     'color': 'purple'
-                                }).length >= purplegoal){ creepcolor = 'blue';
-                            if (_.filter(Memory.creeps, {
-                                    'job': 'ups',
-                                    'color': 'blue'
-                                }).length >= bluegoal) creepcolor = 'cyan';
-                        }
+                                }).length >= purplegoal) {
+                                creepcolor = 'blue';
+                                if (_.filter(Memory.creeps, {
+                                        'job': 'ups',
+                                        'color': 'blue'
+                                    }).length >= bluegoal) creepcolor = 'cyan';
+                            }
                         }
                         if (croom.name === 'E6N13') {
                             creepcolor = 'green';
                             var greencount = _.filter(Memory.creeps, {
-                                    'job': 'ups',
-                                    'color': 'green'
-                                }).length;
-                            if (greencount >= greengoal){ creepcolor = 'yellow';
+                                'job': 'ups',
+                                'color': 'green'
+                            }).length;
+                            if (greencount >= greengoal) {
+                                creepcolor = 'yellow';
                             }
                             var yellowcount = _.filter(Memory.creeps, {
-                                    'job': 'ups',
-                                    'color': 'yellow'
-                                }).length;
-                            if (yellowcount >= yellowgoal && greencount >= greengoal){ creepcolor = 'orange';
+                                'job': 'ups',
+                                'color': 'yellow'
+                            }).length;
+                            if (yellowcount >= yellowgoal && greencount >= greengoal) {
+                                creepcolor = 'orange';
                             }
                             var orangecount = _.filter(Memory.creeps, {
-                                    'job': 'ups',
-                                    'color': 'orange'
-                                }).length;
-                            if (orangecount >= orangegoal && yellowcount >= yellowgoal && greencount >= greengoal){ creepcolor = 'brown';
+                                'job': 'ups',
+                                'color': 'orange'
+                            }).length;
+                            if (orangecount >= orangegoal && yellowcount >= yellowgoal && greencount >= greengoal) {
+                                creepcolor = 'brown';
                             }
                         }
-                    
-                        
+
+
                         while (Game.spawns[spawn].canCreateCreep([WORK], title) == -3) {
                             suffixn = suffixn + 1;
                             title = base.concat(suffixn.toString());

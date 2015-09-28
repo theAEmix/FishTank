@@ -1,3 +1,9 @@
+/* 
+global Game, Memory, FIND_MY_CREEPS, FIND_STRUCTURES, STRUCTURE_ROAD, STRUCTURE_WALL, STRUCTURE_RAMPART, _, WORK,
+FIND_HOSTILE_CREEPS,FIND_CONSTRUCTION_SITES,CARRY,MOVE,AE,ERR_NOT_OWNER,ERR_BUSY, ERR_NOT_IN_RANGE,C,FIND_MY_STRUCTURES,STRUCTURE_EXTENSION,
+FIND_MY_SPAWNS
+*/
+
 module.exports = {
   spawnSay: spawnSay,
   getTarget: getTarget,
@@ -178,6 +184,7 @@ function findEnergy(creep, target) {
 
 function spawnCreep(creeptype, spawnObj) {
   var temp = spawnObj.room.memory.template.creeptype[creeptype];
+  var tempRole;
   if (creeptype === 'bruiser' || creeptype === 'ups' || creeptype === 'buildroam' || creeptype === 'gather') {
     tempRole = 'claimer';
   }
