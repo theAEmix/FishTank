@@ -1,5 +1,5 @@
 module.exports = function(croom, cmodeString, invade) {
-    //var memorysetup = require('zRoomMemTemp');
+    var memorysetup = require('zRoomMemTemp');
 
     if (croom.memory.currentmode) {
         //initialize the CPU tracking function

@@ -58,7 +58,7 @@ module.exports = function(creep, creeplimit, croom, spawn) {
 
         else if (creep.carry.energy <= creep.carryCapacity) {
             if (creep.pos.getRangeTo(tlink) <= 1 && creep.carry.energy !== creep.carryCapacity) {
-                var closestlink = creep.pos.findInRange(FIND_MY_STRUCTURES, 3, {
+                var closestlink = creep.pos.findInRange(FIND_MY_STRUCTURES, 2, {
                     filter: {
                         structureType: STRUCTURE_LINK
                     }
