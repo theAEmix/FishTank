@@ -1,3 +1,7 @@
+/* 
+global Game, Memory, FIND_MY_CREEPS, FIND_STRUCTURES, STRUCTURE_ROAD, STRUCTURE_WALL, STRUCTURE_RAMPART, _, WORK,FIND_HOSTILE_CREEPS,FIND_CONSTRUCTION_SITES,CARRY,MOVE,AE
+*/
+
 module.exports = function(croom, cmodeString, invade) {
     var memorysetup = require('zRoomMemTemp');
 
@@ -64,7 +68,7 @@ module.exports = function(croom, cmodeString, invade) {
                     && o.owner.username !== 'DewJunkie'
                     && o.owner.username !== 'Vertigan'
                     && o.owner.username !== 'Waveofbabies'
-                    //&& o.owner.username !== 'Vision'
+                    && o.owner.username !== 'Vision'
                     )
                 }
             })[0];
@@ -153,8 +157,10 @@ module.exports = function(croom, cmodeString, invade) {
             croom.memory.updateCreeps = 1;
         }
         else {
-
+            AE.makeQueue(croom);
             cpuTracking.push(['Spawn Start', Game.getUsedCpu()]);
+            //Initial Memory reset for Spawning
+            croom.memory.spawnQueue = [];
             //Rebuild script to rebuild any creeps that died, need to deal with the issue of names still, won't build W1 when any other Ws exist
             if (Game.spawns[spawn] && croom.memory.updateCreeps === 0 && !Game.spawns[spawn].spawning) {
                 if (cCreeps.length < creepgoal) {

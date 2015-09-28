@@ -6,7 +6,12 @@ module.exports = {
   deliverExt: deliverExt,
   deliverSpawn: deliverSpawn,
   deliverStorage: deliverStorage,
-  moveToward: moveToward
+  findEnergy: findEnergy,
+  moveToward: moveToward,
+  spawnCreep: spawnCreep,
+  makeQueue: makeQueue,
+  getName: getName,
+  getColor: getColor
 }
 
 function spawnSay(spawn) {
@@ -164,4 +169,173 @@ function deliverStorage(creep) {
   else {
     return false;
   }
+}
+
+function findEnergy(creep, target) {
+  //for use when looking for any energy
+
+}
+
+function spawnCreep(creeptype, spawnObj) {
+  var temp = spawnObj.room.memory.template.creeptype[creeptype];
+  if (creeptype === 'bruiser' || creeptype === 'ups' || creeptype === 'buildroam' || creeptype === 'gather') {
+    tempRole = 'claimer';
+  }
+  else {
+    tempRole = creeptype;
+  }
+
+  spawnObj.createCreep(temp, AE.getName(creeptype, spawnObj.name), {
+    'job': creeptype,
+    'spawnroom': spawnObj.room.name,
+    'homebase': spawnObj.name,
+    'role': tempRole
+  })
+}
+
+function makeQueue(croom) {
+  var roleCount = croom.memory.mode.count;
+  var roleTotal = croom.memory.mode[croom.memory.currentmode];
+  croom.memory.spawnQueue = [];
+  for (var i in roleCount) {
+    if (roleCount[i] < roleTotal[i]) {
+      croom.memory.spawnQueue.push(i);
+    }
+  }
+}
+
+function getColor(creep) {
+  if (creep.memory.job === 'gather') {
+    var creepcolor = 'white';
+    var greylimit = 2;
+    var purplelimit = 1;
+    var greenlimit = 1;
+    var yellowlimit = 2;
+    var orangelimit = 1;
+    if (creep.room.name === 'W1S4') {
+      creepcolor = 'grey';
+      if (_.filter(Memory.creeps, {
+          'job': 'gather',
+          'color': 'grey'
+        }).length >= greylimit) {
+        creepcolor = 'red';
+      }
+    }
+    if (creep.room.name === 'E5N2') {
+      creepcolor = 'red';
+    }
+    if (creep.room.name === 'W13N2') {
+      creepcolor = 'purple';
+      if (_.filter(Memory.creeps, {
+          'job': 'gather',
+          'color': 'purple'
+        }).length >= purplelimit) {
+        creepcolor = 'blue';
+        if (_.filter(Memory.creeps, {
+            'job': 'gather',
+            'color': 'blue'
+          }).length >= 1) creepcolor = 'cyan';
+      }
+    }
+    if (creep.room.name === 'E6N13') {
+      creepcolor = 'green';
+      var greenfilter = _.filter(Memory.creeps, {
+        'job': 'gather',
+        'color': 'green'
+      }).length;
+      if (greenfilter >= greenlimit) {
+        creepcolor = 'yellow';
+      }
+      var yellowfilter = _.filter(Memory.creeps, {
+        'job': 'gather',
+        'color': 'yellow'
+      }).length;
+      if (yellowfilter >= yellowlimit && greenfilter >= greenlimit) {
+        creepcolor = 'orange';
+      }
+      var orangefilter = _.filter(Memory.creeps, {
+        'job': 'gather',
+        'color': 'orange'
+      }).length;
+      if (orangefilter >= orangelimit && greenfilter >= greenlimit && yellowfilter >= yellowlimit) {
+        creepcolor = 'brown';
+      }
+    }
+  }
+  else if (creep.memory.job === 'ups') {
+    var whitegoal = 3;
+    var purplegoal = 1;
+    var bluegoal = 3;
+    var cyangoal = 3;
+    var greygoal = 5;
+    var greengoal = 2;
+    var yellowgoal = 4;
+    var orangegoal = 2;
+    var creepcolor = 'white';
+    if (creep.room.name === 'W1S4') {
+      creepcolor = 'grey';
+      if (_.filter(Memory.creeps, {
+          'job': 'ups',
+          'color': 'grey'
+        }).length >= greygoal) {
+        creepcolor = 'red';
+      }
+    }
+    if (creep.room.name === 'E5N2') creepcolor = 'red';
+    if (creep.room.name === 'W13N2') {
+      creepcolor = 'purple';
+      if (_.filter(Memory.creeps, {
+          'job': 'ups',
+          'color': 'purple'
+        }).length >= purplegoal) {
+        creepcolor = 'blue';
+        if (_.filter(Memory.creeps, {
+            'job': 'ups',
+            'color': 'blue'
+          }).length >= bluegoal) creepcolor = 'cyan';
+      }
+    }
+    if (creep.room.name === 'E6N13') {
+      creepcolor = 'green';
+      var greencount = _.filter(Memory.creeps, {
+        'job': 'ups',
+        'color': 'green'
+      }).length;
+      if (greencount >= greengoal) {
+        creepcolor = 'yellow';
+      }
+      var yellowcount = _.filter(Memory.creeps, {
+        'job': 'ups',
+        'color': 'yellow'
+      }).length;
+      if (yellowcount >= yellowgoal && greencount >= greengoal) {
+        creepcolor = 'orange';
+      }
+      var orangecount = _.filter(Memory.creeps, {
+        'job': 'ups',
+        'color': 'orange'
+      }).length;
+      if (orangecount >= orangegoal && yellowcount >= yellowgoal && greencount >= greengoal) {
+        creepcolor = 'brown';
+      }
+    }
+  }
+  else if (creep.memory.job === 'buildroam') {
+    var creepcolor = 'orange';
+  }
+  else if (creep.memory.job === 'bruiser') {
+    var creepcolor = 'purple';
+  }
+  return creepcolor;
+}
+
+function getName(creeptype, spawn) {
+  var base = creeptype;
+  var suffixn = 1;
+  var title = base.concat(suffixn.toString());
+  while (Game.spawns[spawn].canCreateCreep([WORK], title) == -3) {
+    suffixn = suffixn + 1;
+    title = base.concat(suffixn.toString());
+  }
+  return title;
 }
