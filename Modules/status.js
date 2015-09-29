@@ -1,3 +1,9 @@
+/* 
+global Game, Memory, FIND_MY_CREEPS, FIND_STRUCTURES, STRUCTURE_ROAD, STRUCTURE_WALL, STRUCTURE_RAMPART, _, WORK,ATTACK,
+FIND_HOSTILE_CREEPS,FIND_CONSTRUCTION_SITES,CARRY,MOVE,AE,ERR_NOT_OWNER,ERR_BUSY, ERR_NOT_IN_RANGE,C,FIND_MY_STRUCTURES,STRUCTURE_EXTENSION,
+FIND_MY_SPAWNS,RANGED_ATTACK
+*/
+
 module.exports = function(creeplimit, croom, rmode, spawn) {
  var home = Game.spawns[spawn];
  var control = Game.rooms[croom.name].controller;
@@ -18,32 +24,16 @@ module.exports = function(creeplimit, croom, rmode, spawn) {
 
  totalenergy = croom.energyAvailable;
 
- console.log('Current Energy -- ' + totalenergy.toString());
-
-// var screep = Game.spawns[spawn].room.find(FIND_MY_CREEPS);
-// console.log('Number of Creeps -- ' + screep.length + ' / ' + creeplimit);
- /*
- for(var i in screep){
-     console.log(screep[i].toString() + ' Life: ' + screep[i].ticksToLive + ' / 1500');
- }*/
- console.log('Level ' + control.level.toString());
+ console.log('Current Energy -- ' + totalenergy.toString() + ' : ' + 'Level ' + control.level.toString());
  if(control.level !== 8){
  console.log(control.progress.toString() + " / " + control.progressTotal.toString());
  }
-/* console.log('Energy in Source 1 -- ' + Game.getObjectById(Game.rooms[croom.name].memory.sources.psource.Id).energy + ' / ' + Game.getObjectById(Game.rooms[croom.name].memory.sources.psource.Id).energyCapacity +
-  '  Regen in -- ' + Game.getObjectById(Game.rooms[croom.name].memory.sources.psource.Id).ticksToRegeneration);*/
- /*if (Memory.rooms[croom.name].sources.ssource) {
-  console.log('Energy in Source 2 -- ' + Game.getObjectById(Game.rooms[croom.name].memory.sources.ssource.Id).energy + ' / ' + Game.getObjectById(Game.rooms[croom.name].memory.sources.ssource.Id).energyCapacity +
-   '  Regen in -- ' + Game.getObjectById(Game.rooms[croom.name].memory.sources.ssource.Id).ticksToRegeneration);
- }*/
  if (croom.storage) {
   console.log('Energy in Storage = ' + croom.storage.store.energy + ' / ' + croom.storage.storeCapacity);
  }
  console.log('Currently there are ' + croom.memory.mRepair.length + ' jobs on the repair docket');
  console.log('Average Cpu : ' + _.sum(Memory.cpuLog) / Memory.cpuLog.length);
- console.log('Max Cpu : ' + _.max(Memory.cpuLog));
- console.log('Min Cpu : ' + _.min(Memory.cpuLog));
- console.log('____________________________________________________________________________________');
+ console.log('Max Cpu : ' + _.max(Memory.cpuLog) + ' / Min Cpu : ' + _.min(Memory.cpuLog) + '  _______________________________________________________');
  if (!Memory.averageLog) {
   Memory.averageLog = [];
  }
