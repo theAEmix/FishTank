@@ -30,3 +30,22 @@ module.exports = function(creep) {
 		console.log('Creep Assigned : ' + creep.memory.miner);
 	}
 }
+
+Spawn.prototype.say = function(msg) {
+  if (!this.my) {
+    return ERR_NOT_OWNER;
+  }
+  if (!this.spawning) {
+    return ERR_BUSY;
+  }
+  if(!msg){
+  	msg = this.spawning;
+  }
+
+  message = msg;
+  intents[this.id] = intents[this.id] || {};
+  intents[this.id].say = {
+    message: "" + message
+  };
+  return C.OK;
+}

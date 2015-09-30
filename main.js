@@ -1,3 +1,9 @@
+/* 
+global Game, Memory, FIND_MY_CREEPS, FIND_STRUCTURES, STRUCTURE_ROAD, STRUCTURE_WALL, STRUCTURE_RAMPART, _, WORK,ATTACK,
+FIND_HOSTILE_CREEPS,FIND_CONSTRUCTION_SITES,CARRY,MOVE,AE,ERR_NOT_OWNER,ERR_BUSY, ERR_NOT_IN_RANGE,C,FIND_MY_STRUCTURES,STRUCTURE_EXTENSION,
+FIND_MY_SPAWNS,RANGED_ATTACK
+*/
+
 //return;
 global.AE = require('AEfunctions');
 var cpuMain = [];
@@ -197,6 +203,9 @@ for (var i in Game.creeps) {
 
     }
     cpuMain.push([creep.name, Game.getUsedCpu()]);
+    if (Game.getUsedCpu() > 300) {
+        console.log(creep.name + ' used a ton of cpu');
+    }
 }
 
 cpuMain.push(['Main ran creeps', Game.getUsedCpu()]);

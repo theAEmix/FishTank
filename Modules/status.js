@@ -19,14 +19,14 @@ module.exports = function(creeplimit, croom, rmode, spawn) {
  }
 
  console.log('Game Time -- ' + Game.time.toString() + ' : Room -- ' + home.room.name + '  Mode:  ' + Game.rooms[croom.name].memory.currentmode + ' -------------------------------------------');
- 
+
 
 
  totalenergy = croom.energyAvailable;
 
  console.log('Current Energy -- ' + totalenergy.toString() + ' : ' + 'Level ' + control.level.toString());
- if(control.level !== 8){
- console.log(control.progress.toString() + " / " + control.progressTotal.toString());
+ if (control.level !== 8) {
+  console.log(control.progress.toString() + " / " + control.progressTotal.toString());
  }
  if (croom.storage) {
   console.log('Energy in Storage = ' + croom.storage.store.energy + ' / ' + croom.storage.storeCapacity);
@@ -43,8 +43,8 @@ module.exports = function(creeplimit, croom, rmode, spawn) {
  if (Memory.averageLog.length > 100) {
   Memory.averageLog = _.drop(Memory.averageLog, 5);
  }
- if(_.sum(Memory.averageLog) / Memory.averageLog.length > 65){
-     var overall = _.sum(Memory.averageLog) / Memory.averageLog.length;
-     Game.notify('Your average CPU is climbing, and may error out soon : Current Setting: ' + '67' +' Measured: ' + overall);
+ if (_.sum(Memory.averageLog) / Memory.averageLog.length > 65) {
+  var overall = _.sum(Memory.averageLog) / Memory.averageLog.length;
+  Game.notify('Your average CPU is climbing, and may error out soon : Current Setting: ' + '67' + ' Measured: ' + overall);
  }
 }
