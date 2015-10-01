@@ -7,16 +7,21 @@ module.exports = function(creep, creeplimit, croom, spawn) {
     //suicide catch all to reset the toggle for each source
     if (!creep.memory.target) {
         AE.getTarget(mem.sources, creep, 1);
-        if (Game.getObjectById(creep.memory.target).pos.findInRange(FIND_STRUCTURES, 2, {
-                filter: {
-                    structureType: STRUCTURE_LINK
-                }
-            })[0] !== undefined) {
-            creep.memory.linkId = (Game.getObjectById(creep.memory.target).pos.findInRange(FIND_STRUCTURES, 2, {
-                filter: {
-                    structureType: STRUCTURE_LINK
-                }
-            })[0].id);
+        if (creep.memory.target) {
+            if (Game.getObjectById(creep.memory.target).pos.findInRange(FIND_STRUCTURES, 2, {
+                    filter: {
+                        structureType: STRUCTURE_LINK
+                    }
+                })[0] !== undefined) {
+                creep.memory.linkId = (Game.getObjectById(creep.memory.target).pos.findInRange(FIND_STRUCTURES, 2, {
+                    filter: {
+                        structureType: STRUCTURE_LINK
+                    }
+                })[0].id);
+            }
+        }
+        else {
+            creep.suicide();
         }
     }
     //if it has an assignment, leave it be and let it run

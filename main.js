@@ -170,7 +170,14 @@ for (var i in Game.creeps) {
         //console.log('Creeps need update');
         continue;
     }
-    if (creep.spawning === true) continue;
+    if (creep.spawning === true) {
+        var sRole = _.trim(creep.name, '1234567890');
+        //console.log(creep.memory.job);
+        croom.memory.mode.count[sRole] = croom.memory.mode.count[sRole] + 1;
+        //console.log('found spawning creep ' + creep.name);
+        continue;
+    }
+
 
     var cRole = creep.memory.role;
     var croom = Game.rooms[creep.memory.spawnroom];

@@ -171,7 +171,7 @@ module.exports = function(croom, cmodeString, invade) {
                         }
                     }
                     else {
-                        //console.log(tempSpawn.name + ' is already busy with another creep: ' + tempSpawn.spawning.name + ' : ' + tempSpawn.spawning.remainingTime);
+                        //console.log(tempSpawn.name + ' is currently spawning, queue has ' + croom.memory.spawnQueue.length + ' left in queue');
                     }
 
                 }
