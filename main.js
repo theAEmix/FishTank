@@ -1,7 +1,7 @@
 /* 
 global Game, Memory, FIND_MY_CREEPS, FIND_STRUCTURES, STRUCTURE_ROAD, STRUCTURE_WALL, STRUCTURE_RAMPART, _, WORK,ATTACK,
 FIND_HOSTILE_CREEPS,FIND_CONSTRUCTION_SITES,CARRY,MOVE,AE,ERR_NOT_OWNER,ERR_BUSY, ERR_NOT_IN_RANGE,C,FIND_MY_STRUCTURES,STRUCTURE_EXTENSION,
-FIND_MY_SPAWNS,RANGED_ATTACK
+FIND_MY_SPAWNS,RANGED_ATTACK, FIND_DROPPED_ENERGY
 */
 
 //return;
@@ -172,9 +172,11 @@ for (var i in Game.creeps) {
     }
     if (creep.spawning === true) {
         var sRole = _.trim(creep.name, '1234567890');
+        var sroom = creep.room;
         //console.log(creep.memory.job);
-        croom.memory.mode.count[sRole] = croom.memory.mode.count[sRole] + 1;
-        //console.log('found spawning creep ' + creep.name);
+        //console.log('Spawning Creep Type ' + sRole + ' when queue is at ' + croom.memory.mode.count[sRole]);
+        sroom.memory.mode.count[sRole] = sroom.memory.mode.count[sRole] + 1;
+        //console.log('Queue increased to ' + croom.memory.mode.count[sRole]);
         continue;
     }
 
@@ -188,7 +190,7 @@ for (var i in Game.creeps) {
     if (!cRole) {
         console.log('Unassigned Creep!');
         //this next step adds a pull request to the end of the scripting, this way, CPU isn't used early in the run for this
-        mem.updateCreeps = 1;
+        croom.memory.updateCreeps = 1;
     }
     else if (cRole && croom && homebase) {
         var tNRG = creep.pos.findInRange(FIND_DROPPED_ENERGY, 1);

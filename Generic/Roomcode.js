@@ -160,20 +160,24 @@ module.exports = function(croom, cmodeString, invade) {
                 //console.log("yy Entering New Spawn Cycle for room : " + croom.name);
                 for (var i in croom.memory.spawnname) {
                     var tempSpawn = Game.spawns[croom.memory.spawnname[i]];
-                    if (!tempSpawn.spawning && croom.memory.spawnQueue[0]) {
-                        if (AE.spawnCreep(croom.memory.spawnQueue[0], tempSpawn) === true) {
-                            console.log(croom.memory.spawnQueue[0] + ' was successfully spawned.')
-                            croom.memory.spawnQueue = _.drop(croom.memory.spawnQueue, 1);
-                            console.log('1 queue slot dropped in ' + croom.name + ' next in queue is ' + croom.memory.spawnQueue[0] + ' with ' + croom.memory.spawnQueue.length + ' left in queue.');
-                        }
-                        else {
-                            //console.log('Cannot Spawn at ' + tempSpawn.name);
-                        }
+                    if (!tempSpawn) {
+                        delete croom.memory.spawnname[i];
                     }
                     else {
-                        //console.log(tempSpawn.name + ' is currently spawning, queue has ' + croom.memory.spawnQueue.length + ' left in queue');
+                        if (!tempSpawn.spawning && croom.memory.spawnQueue[0]) {
+                            if (AE.spawnCreep(croom.memory.spawnQueue[0], tempSpawn) === true) {
+                                console.log(croom.memory.spawnQueue[0] + ' was successfully spawned.')
+                                croom.memory.spawnQueue = _.drop(croom.memory.spawnQueue, 1);
+                                console.log('1 queue slot dropped in ' + croom.name + ' next in queue is ' + croom.memory.spawnQueue[0] + ' with ' + croom.memory.spawnQueue.length + ' left in queue.');
+                            }
+                            else {
+                                //console.log('Cannot Spawn at ' + tempSpawn.name);
+                            }
+                        }
+                        else {
+                            //console.log(tempSpawn.name + ' is currently spawning, queue has ' + croom.memory.spawnQueue.length + ' left in queue');
+                        }
                     }
-
                 }
             }
             else {

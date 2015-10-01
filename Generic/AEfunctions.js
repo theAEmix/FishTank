@@ -5,7 +5,6 @@ FIND_MY_SPAWNS,RANGED_ATTACK
 */
 
 module.exports = {
-  spawnSay: spawnSay,
   getTarget: getTarget,
   repairTarget: repairTarget,
   buildTarget: buildTarget,
@@ -18,22 +17,6 @@ module.exports = {
   makeQueue: makeQueue,
   getName: getName,
   getColor: getColor
-}
-
-function spawnSay(spawn) {
-  if (!Game.spawns[spawn].my) {
-    return ERR_NOT_OWNER;
-  }
-  if (!Game.spawns[spawn].spawning) {
-    return ERR_BUSY;
-  }
-
-  message = Game.spawns[spawn].spawning;
-  intents[this.id] = intents[this.id] || {};
-  intents[this.id].say = {
-    message: "" + message
-  };
-  return C.OK;
 }
 
 function getTarget(tArray, aCreep, assignLimit) {
