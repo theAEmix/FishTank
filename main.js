@@ -43,7 +43,7 @@ f.guard = require('Guard');
 //f.spawnguard = require('spawnguard');
 //f.ranger = require('ranger');
 //f.bruiser = require('bruiser');
-//f.cleric = require('cleric');
+f.cleric = require('cleric');
 
 //Utility creeps
 f.claimer = require('claimer');
@@ -205,7 +205,7 @@ for (var i in Game.creeps) {
         if (!croom.memory.mode.count[cRole]) {
             croom.memory.mode.count[cRole] = 0;
         }
-        if ((creep.memory.color === 'red' && creep.memory.job === 'buildroam') && creep.ticksToLive < 900) {}
+        if ((creep.memory.color === 'red' && creep.memory.job === 'buildroam') && creep.ticksToLive < 1100) {}
         else {
             croom.memory.mode.count[cRole] = croom.memory.mode.count[cRole] + 1;
         }

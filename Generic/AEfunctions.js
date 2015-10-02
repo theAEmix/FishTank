@@ -23,6 +23,7 @@ function getTarget(tArray, aCreep, assignLimit) {
   if (!assignLimit) assignLimit = 1;
   for (var i in tArray) {
     if (!tArray[i].creeps) tArray[i].creeps = [];
+    if(tArray[i].assignment && aCreep.memory.job !== 'gather'){assignLimit = tArray[i].assignment;}
     var k = 0;
     while (tArray[i].creeps[k] !== undefined) {
       var j = Game.getObjectById(tArray[i].creeps[k]);
@@ -316,7 +317,7 @@ function getColor(creep) {
     }
   }
   else if (creep.memory.job === 'buildroam') {
-    var creepcolor = 'orange';
+    var creepcolor = 'red';
   }
   else if (creep.memory.job === 'bruiser') {
     var creepcolor = 'purple';

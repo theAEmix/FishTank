@@ -81,7 +81,7 @@ module.exports = function(croom, cmodeString, invade) {
             croom.memory.currentmode = 'general';
             console.log('Changing to General mode due to no more enemies in ' + croom.name);
         }
-        if (croom.find(FIND_CONSTRUCTION_SITES).length > 15 && croom.memory.currentmode != 'building') {
+        if (croom.find(FIND_CONSTRUCTION_SITES).length > 15 && croom.memory.currentmode != 'building' && croom.memory.currentmode !== 'defense') {
             croom.memory.currentmode = 'building';
             console.log('Changing to Building Mode in room ' + croom.name);
         }
@@ -111,6 +111,9 @@ module.exports = function(croom, cmodeString, invade) {
             croom.memory.rLevel = croom.controller.level;
             rLevel = croom.memory.rLevel;
             croom.memory.setpoints.maxhealth = Memory.constants.ramparthealth[rLevel];
+        }
+        if(!croom.memory.remoteMines){
+            croom.memory.remoteMines = {};
         }
 
         //find all creeps in this room that aren't from here. 
@@ -225,8 +228,8 @@ module.exports = function(croom, cmodeString, invade) {
     }
     else {
         if (croom.energyCapacityAvailable >= 300) {
-            //console.log('Setting up memory for ' + croom.name);
-            //memorysetup(croom, 20, 37);
+            console.log('Setting up memory for ' + croom.name);
+            memorysetup(croom, 27, 36);
         }
     }
 }
