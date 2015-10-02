@@ -11,7 +11,9 @@ module.exports = function(creep, creeplimit, croom, spawn) {
     var clink = Game.getObjectById(croom.memory.links.clink);
     var centerlink = Game.getObjectById(croom.memory.links.centerlink);
     if (!creep.memory.target) {
-        AE.getTarget(croom.memory.sources, creep, 2);
+        var currentMode = croom.memory.currentmode;
+        var split = croom.memory.mode[currentMode].hauler / 2;
+        AE.getTarget(croom.memory.sources, creep, split);
         if (!creep.memory.sourceId) creep.memory.sourceId = creep.memory.target;
     }
     if (creep.tickToLive < 15 && croom.storage) {

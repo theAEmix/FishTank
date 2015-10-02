@@ -6,17 +6,17 @@ module.exports = function(croom, idlex, idley) {
         'maxhealth': 0
     };
     var modetemp = {
-        'harvester': 0,
-        'farmer': 0,
+        'harvester': 4,
+        'farmer': 2,
         'gather': 0,
-        'courier': 0,
+        'courier': 1,
         'hauler': 0,
         'tanker': 0,
         'helper': 0,
         'ups': 0,
         'banker': 0,
-        'runner': 0,
-        'builder': 0,
+        'runner': 3,
+        'builder': 1,
         'repairer': 0,
         'pumper': 0,
         'emt': 0,
@@ -28,7 +28,7 @@ module.exports = function(croom, idlex, idley) {
         'cleric': 0,
         'claimer': 0,
         'buildroam': 0,
-        'totalCreeps': 0
+        'totalCreeps': 11
     };
     mem.mode = {
         'general': modetemp,
@@ -47,7 +47,7 @@ module.exports = function(croom, idlex, idley) {
     mem.template = {
         'creeptype': {
             'harvester': [WORK, CARRY, MOVE, MOVE],
-            'farmer': [WORK, CARRY, MOVE, MOVE],
+            'farmer': [WORK, WORK, CARRY, MOVE],
             'gather': [WORK, CARRY, MOVE, MOVE],
             'courier': [CARRY, MOVE],
             'hauler': [CARRY, CARRY, MOVE, MOVE],
@@ -144,10 +144,10 @@ module.exports = function(croom, idlex, idley) {
     mem.mSites = [];
 
     mem.mode.general = {
-        'harvester': 6,
-        'farmer': 0,
+        'harvester': 4,
+        'farmer': 2,
         'gather': 0,
-        'courier': 0,
+        'courier': 1,
         'hauler': 0,
         'tanker': 0,
         'helper': 0,
@@ -166,13 +166,13 @@ module.exports = function(croom, idlex, idley) {
         'cleric': 0,
         'claimer': 0,
         'buildroam': 0,
-        'totalCreeps': 10
+        'totalCreeps': 11
     }
     mem.mode.building = {
-        'harvester': 6,
-        'farmer': 0,
+        'harvester': 4,
+        'farmer': 2,
         'gather': 0,
-        'courier': 0,
+        'courier': 1,
         'hauler': 0,
         'tanker': 0,
         'helper': 0,
@@ -191,7 +191,7 @@ module.exports = function(croom, idlex, idley) {
         'cleric': 0,
         'claimer': 0,
         'buildroam': 0,
-        'totalCreeps': 11
+        'totalCreeps': 12
     }
     console.log('A new room has been initialized and spawn is built : ' + croom.name);
 
