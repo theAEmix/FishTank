@@ -23,7 +23,9 @@ function getTarget(tArray, aCreep, assignLimit) {
   if (!assignLimit) assignLimit = 1;
   for (var i in tArray) {
     if (!tArray[i].creeps) tArray[i].creeps = [];
-    if(tArray[i].assignment && aCreep.memory.job !== 'gather'){assignLimit = tArray[i].assignment;}
+    if (tArray[i].assignment && aCreep.memory.job !== 'gather') {
+      assignLimit = tArray[i].assignment;
+    }
     var k = 0;
     while (tArray[i].creeps[k] !== undefined) {
       var j = Game.getObjectById(tArray[i].creeps[k]);
@@ -176,16 +178,16 @@ function spawnCreep(creeptype, spawnObj) {
   else {
     tempRole = creeptype;
   }
-  if(spawnObj.canCreateCreep(tempBody,null) === 0){
-  spawnObj.createCreep(tempBody, AE.getName(creeptype, spawnObj.name), {
-    'job': creeptype,
-    'spawnroom': spawnObj.room.name,
-    'homebase': spawnObj.name,
-    'role': tempRole
-  });
-  return true;
+  if (spawnObj.canCreateCreep(tempBody, null) === 0) {
+    spawnObj.createCreep(tempBody, AE.getName(creeptype, spawnObj.name), {
+      'job': creeptype,
+      'spawnroom': spawnObj.room.name,
+      'homebase': spawnObj.name,
+      'role': tempRole
+    });
+    return true;
   }
-  else{
+  else {
     return false;
   }
 }
@@ -318,13 +320,13 @@ function getColor(creep) {
     }
   }
   else if (creep.memory.job === 'buildroam') {
-    var creepcolor = 'red';
+    var creepcolor = 'cyan';
   }
   else if (creep.memory.job === 'bruiser') {
     var creepcolor = 'red';
   }
-  else if (creep.memory.job === 'cleric' ){
-      var creepcolor = 'red';
+  else if (creep.memory.job === 'cleric') {
+    var creepcolor = 'red';
   }
   return creepcolor;
 }

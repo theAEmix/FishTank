@@ -16,8 +16,8 @@ module.exports = function(croom, idlex, idley) {
         'ups': 0,
         'banker': 0,
         'runner': 3,
-        'builder': 1,
-        'repairer': 0,
+        'builder': 0,
+        'repairer': 1,
         'pumper': 0,
         'emt': 0,
         'attacker': 0,
@@ -154,8 +154,8 @@ module.exports = function(croom, idlex, idley) {
         'ups': 0,
         'banker': 0,
         'runner': 3,
-        'builder': 1,
-        'repairer': 0,
+        'builder': 0,
+        'repairer': 1,
         'pumper': 0,
         'emt': 0,
         'attacker': 0,
@@ -192,6 +192,31 @@ module.exports = function(croom, idlex, idley) {
         'claimer': 0,
         'buildroam': 0,
         'totalCreeps': 12
+    }
+    mem.mode.defense = {
+        'harvester': 4,
+        'farmer': 2,
+        'gather': 0,
+        'courier': 1,
+        'hauler': 0,
+        'tanker': 0,
+        'helper': 0,
+        'ups': 0,
+        'banker': 0,
+        'runner': 0,
+        'builder': 0,
+        'repairer': 2,
+        'pumper': 0,
+        'emt': 0,
+        'attacker': 8,
+        'guard': 0,
+        'spawnguard': 0,
+        'ranger': 0,
+        'bruiser': 0,
+        'cleric': 0,
+        'claimer': 0,
+        'buildroam': 0,
+        'totalCreeps': 17
     }
     console.log('A new room has been initialized and spawn is built : ' + croom.name);
 
