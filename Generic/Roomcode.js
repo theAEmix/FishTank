@@ -229,7 +229,7 @@ module.exports = function(croom, cmodeString, invade) {
     else {
         if (croom.energyCapacityAvailable >= 300) {
             console.log('Setting up memory for ' + croom.name);
-            memorysetup(croom, 27, 36);
+            memorysetup(croom, 23,27);
         }
     }
 }

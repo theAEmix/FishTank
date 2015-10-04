@@ -77,11 +77,12 @@ function buildTarget(creep) {
 
 function deliverExt(creep) {
   if (creep.room.energyAvailable < creep.room.energyCapacityAvailable) {
-    var cExt = creep.room.findClosestByRange(FIND_MY_STRUCTURES, {
+    var cExt = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
       filter: function(object) {
-        if (object.structureType == STRUCTURE_EXTENSION) return object.energy < object.energyCapacity;
+        return (object.structureType == STRUCTURE_EXTENSION && object.energy < object.energyCapacity);
       }
     });
+    //creep.say('hello');
     if (cExt) {
       if (creep.transferEnergy(cExt) === ERR_NOT_IN_RANGE) {
         creep.moveTo(cExt, {
@@ -169,7 +170,7 @@ function findEnergy(creep, target) {
 function spawnCreep(creeptype, spawnObj) {
   var tempBody = spawnObj.room.memory.template.creeptype[creeptype];
   var tempRole;
-  if (creeptype === 'bruiser' || creeptype === 'ups' || creeptype === 'buildroam' || creeptype === 'gather') {
+  if (creeptype === 'bruiser' || creeptype === 'ups' || creeptype === 'buildroam' || creeptype === 'gather' || creeptype === 'cleric') {
     tempRole = 'claimer';
   }
   else {
@@ -320,7 +321,10 @@ function getColor(creep) {
     var creepcolor = 'red';
   }
   else if (creep.memory.job === 'bruiser') {
-    var creepcolor = 'purple';
+    var creepcolor = 'red';
+  }
+  else if (creep.memory.job === 'cleric' ){
+      var creepcolor = 'red';
   }
   return creepcolor;
 }

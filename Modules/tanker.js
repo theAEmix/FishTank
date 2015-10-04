@@ -55,7 +55,8 @@ module.exports = function(creep, creeplimit, croom, spawn) {
 			//console.log(creep.name + ' is Active');
 
 			creep.moveTo(targetcreep[0], {
-				reusePath: 25
+				reusePath: 25,
+				heuristicWeight : 500
 			});
 
 			creep.transferEnergy(targetcreep[0]);

@@ -82,7 +82,7 @@ module.exports = function(creep) {
                     if (gatherers[0] !== undefined) {
                         var d1 = creep.pos.getDirectionTo(gatherers[0]);
                         creep.say(d1);
-                        var newdirection = (d1 + 3) % 8;
+                        var newdirection = (d1 + 3) % 8 + 1;
                         creep.say(newdirection);
                         creep.move(newdirection);
                     }

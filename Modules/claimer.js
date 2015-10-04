@@ -18,32 +18,39 @@ module.exports = function(creep, creeplimit, croom, spawn) {
    creep.memory.role = creep.memory.job;
   }
  }
- 
- else if (creep.room.controller.level >= 1 && creep.memory.status == 'arrived' && creep.getActiveBodyparts(ATTACK) < 1 && creep.room.controller.owner.username === 'theAEmix') {
+ else if (creep.memory.job === 'gather') {
+   creep.memory.role = 'gather';
+  }
+  else if (creep.memory.job === 'ups') {
+   creep.memory.role = 'ups';
+  }
+  else if(creep.memory.job === 'cleric'){
+      creep.memory.role = 'cleric';
+  }
+ else if (creep.room.controller && creep.room.controller.level >= 1 && creep.memory.status == 'arrived' && creep.getActiveBodyparts(ATTACK) < 1 && creep.getActiveBodyparts(RANGED_ATTACK) < 1 && creep.room.controller.owner.username === 'theAEmix') {
   creep.memory.role = 'buildroam';
+  //creep.memory.spawnroom = creep.room.name;
   console.log(creep + ' changing to BuildRoam');
  }
  
  else if (creep.getActiveBodyparts(ATTACK) > 1 || creep.getActiveBodyparts(RANGED_ATTACK) > 0) {
   creep.say('Attack!');
-  creep.memory.role = 'attacker';
+  creep.memory.role = 'bruiser';
+ }
+ else if(!creep.room.controller){
+     creep.moveTo(27,18, {reusePath: 15});
+     creep.memory.role = creep.memory.job;
  }
  else if (creep.memory.job) {
   if (creep.memory.job === 'rc' || creep.memory.job === 'buildroam') {
    creep.moveTo(creep.room.controller);
    creep.claimController(creep.room.controller);
   }
-  
-  else if (creep.memory.job === 'gather') {
-   creep.memory.role = 'gather';
-  }
-  else if (creep.memory.job === 'ups') {
-   creep.memory.role = 'ups';
-  }
   else {
    console.log('Creep is lost : ' + creep.name);
   }
  }
+ 
 
 
 
