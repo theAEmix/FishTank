@@ -205,7 +205,7 @@ for (var i in Game.creeps) {
         if (!croom.memory.mode.count[cRole]) {
             croom.memory.mode.count[cRole] = 0;
         }
-        if (creep.memory.color === 'red' && (creep.memory.job === 'buildroam' || creep.memory.job === 'bruiser' || creep.memory.job === 'cleric') && creep.ticksToLive < 1000) {}
+        if (creep.memory.color === 'cyan' && (creep.memory.job === 'buildroam' || creep.memory.job === 'bruiser' || creep.memory.job === 'cleric') && creep.ticksToLive < 1000) {}
         else {
             croom.memory.mode.count[cRole] = croom.memory.mode.count[cRole] + 1;
         }

@@ -152,7 +152,7 @@ module.exports = function(croom, cmodeString, invade) {
                 'spawnroom': Game.spawns[spawn].room.name
             });
             console.log('EMERGENCY, EMERGENCY, WE NEED A CRASH CART, STAT!!!! in room ' + croom.name);
-            Game.notify('EMT creep created due to script hang');
+            Game.notify('EMT creep created due to script hang in room ' + croom.name);
             croom.memory.updateCreeps = 1;
         }
         else {

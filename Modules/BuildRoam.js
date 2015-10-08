@@ -4,7 +4,7 @@ module.exports = function(creep, creeplimit, croom, spawn) {
  var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
  var source = creep.pos.findClosestByRange(FIND_SOURCES, {
   filter: function(o) {
-   return (o.energy !== 0 && o.pos.findInRange(FIND_CREEPS, 1)[0] === undefined)
+   return (o.energy !== 0 && o.pos.findInRange(FIND_CREEPS, 1)[1] === undefined)
   }
  });
  if (creep.carry.energy < creep.carryCapacity && creep.pos.findInRange(FIND_SOURCES, 1)[0] !== undefined) {

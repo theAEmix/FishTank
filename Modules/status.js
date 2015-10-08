@@ -45,6 +45,7 @@ module.exports = function(creeplimit, croom, rmode, spawn) {
  }
  if (_.sum(Memory.averageLog) / Memory.averageLog.length > 65) {
   var overall = _.sum(Memory.averageLog) / Memory.averageLog.length;
-  Game.notify('Your average CPU is climbing, and may error out soon : Current Setting: ' + '67' + ' Measured: ' + overall);
+  console.log('Your average CPU is climbing, and may error out soon : Current Setting: ' + '70' + ' Measured: ' + overall);
+  Game.notify('Your average CPU is climbing, and may error out soon : Current Setting: ' + '70' + ' Measured: ' + overall);
  }
 }
